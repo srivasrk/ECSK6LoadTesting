@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  ecs:
+    build:
+      context: .
+      args:
+        - AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+        - AWS_SECRET_KEY=$AWS_SECRET_KEY
+        - ECS_PROFILE_NAME=$ECS_PROFILE_NAME
+        - AWS_REGION=$AWS_REGION
+        - ECS_CLUSTER_NAME=ECS_CLUSTER_NAME
+    environment:
+      - INSTANCE_KEYPAIR=$INSTANCE_KEYPAIR
+      - AWS_SUBNETS=$AWS_SUBNETS
+      - AWS_VPC=$AWS_VPC
+      - ECS_CLUSTER_SIZE=$ECS_CLUSTER_SIZE
+      - ECS_INSTANCE_TYPE=$ECS_INSTANCE_TYPE
+      - ECS_CLUSTER_CONFIG=$ECS_PROFILE_NAME

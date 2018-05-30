@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Create ECS cluster
+echo "=> Creating ECS Cluster"
+echo $ECS_CLUSTER_NAME
+ecs-cli up \
+    --keypair $INSTANCE_KEYPAIR \
+    --capability-iam \
+    --subnets $AWS_SUBNETS \
+    --vpc $AWS_VPC \
+    --size $ECS_CLUSTER_SIZE \
+    --instance-type $ECS_INSTANCE_TYPE \
+    --cluster-config $ECS_CLUSTER_NAME
+
+# Run ECS Task based on your configuration
+if [ $? ]; then
+    echo "=> Running ECS Task"
+    ecs-cli compose \
+        --file docker-compose.yml \
+        --file aws-compose.yml \
+        up \
+        --create-log-groups \
+        --cluster-config $ECS_CLUSTER_NAME
+fi

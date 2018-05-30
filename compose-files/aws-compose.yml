@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  k6:
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: prs-load-testing
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: prs
