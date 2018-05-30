@@ -15,10 +15,6 @@ RUN pip install awscli \
     && curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest \
     && chmod +x /usr/local/bin/ecs-cli
 
-# Configure ECS Cluster
-RUN ecs-cli configure profile --profile-name $ECS_PROFILE_NAME --access-key $AWS_ACCESS_KEY --secret-key $AWS_SECRET_KEY \
-    && ecs-cli configure --cluster $ECS_CLUSTER_NAME --region $AWS_REGION --default-launch-type EC2 --config-name $ECS_PROFILE_NAME
-
 WORKDIR /compose-files
 
 COPY ./compose-files /compose-files

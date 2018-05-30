@@ -1,24 +1,32 @@
 #!/bin/bash
 
+echo "=> Setup Cluster Profile"
+ecs-cli configure profile \
+    --profile-name $ECS_PROFILE_NAME \
+    --access-key $AWS_ACCESS_KEY \
+    --secret-key $AWS_SECRET_KEY \
+    && ecs-cli configure \
+        --cluster $ECS_CLUSTER_NAME \
+        --region $AWS_REGION \
+        --default-launch-type EC2 \
+        --config-name $ECS_PROFILE_NAME
+
 # Create ECS cluster
 echo "=> Creating ECS Cluster"
-echo $ECS_CLUSTER_NAME
-ecs-cli up \
+ecs-cli up --force \
     --keypair $INSTANCE_KEYPAIR \
     --capability-iam \
     --subnets $AWS_SUBNETS \
     --vpc $AWS_VPC \
     --size $ECS_CLUSTER_SIZE \
     --instance-type $ECS_INSTANCE_TYPE \
-    --cluster-config $ECS_CLUSTER_NAME
+    --cluster-config $ECS_CLUSTER_CONFIG
 
 # Run ECS Task based on your configuration
-if [ $? ]; then
-    echo "=> Running ECS Task"
-    ecs-cli compose \
-        --file docker-compose.yml \
-        --file aws-compose.yml \
-        up \
-        --create-log-groups \
-        --cluster-config $ECS_CLUSTER_NAME
-fi
+echo "=> Running ECS Task"
+ecs-cli compose \
+    --file docker-compose.yml \
+    --file aws-compose.yml \
+    up \
+    --create-log-groups \
+    --cluster-config $ECS_CLUSTER_CONFIG

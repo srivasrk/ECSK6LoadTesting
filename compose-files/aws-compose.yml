@@ -5,6 +5,6 @@ services:
     logging:
       driver: awslogs
       options:
-        awslogs-group: prs-load-testing
+        awslogs-group: prs-load-testing-docker
         awslogs-region: us-east-1
-        awslogs-stream-prefix: prs
+        awslogs-stream-prefix: prs-docker
