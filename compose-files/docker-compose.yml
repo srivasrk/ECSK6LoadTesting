@@ -2,8 +2,11 @@ version: '2'
 
 services:
   k6:
-    image: 294395266716.dkr.ecr.us-east-1.amazonaws.com/loadtesting
+    image: 294395266716.dkr.ecr.us-east-1.amazonaws.com/loadtesting:latest
     environment:
       - K6_OUT=influxdb=https://hilldale-fb76da79.influxcloud.net:8086/k6
       - INFLUXDB_USERNAME=admin
       - INFLUXDB_PASSWORD=password
+      - K6_STAGE="50s:100"
+      - K6_RPS=50
+      - K6_NO_CONNECTION_REUSE=true

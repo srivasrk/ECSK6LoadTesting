@@ -13,7 +13,7 @@ ecs-cli configure profile \
 
 # Create ECS cluster
 echo "=> Creating ECS Cluster"
-ecs-cli up --force \
+ecs-cli up \
     --keypair $INSTANCE_KEYPAIR \
     --capability-iam \
     --subnets $AWS_SUBNETS \
