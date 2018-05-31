@@ -22,6 +22,9 @@ ecs-cli up \
     --instance-type $ECS_INSTANCE_TYPE \
     --cluster-config $ECS_CLUSTER_CONFIG
 
+echo "=> Take a nap and ECS will be ready when you wake up"
+sleep 300
+
 # Run ECS Task based on your configuration
 echo "=> Running ECS Task"
 ecs-cli compose \
